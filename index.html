@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="todo-card" aria-label="To-do list">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Daily Planner</p>
+            <h1>To-Do List</h1>
+          </div>
+          <div class="topbar-actions">
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+              <svg class="theme-icon sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <svg class="theme-icon moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <span id="taskCounter" class="pill" aria-live="polite">0 tasks</span>
+          </div>
+        </header>
+
+        <div class="workspace-bar">
+          <div class="workspace-meta">
+            <div class="workspace-text-wrap">
+              <span class="workspace-label">Workspace</span>
+              <span class="demo-badge">No login required</span>
+            </div>
+            <input id="userNameInput" class="user-name-input" type="text" value="My Workspace" aria-label="Workspace user name" />
+          </div>
+          <div class="workspace-actions">
+            <button id="syncBtn" class="sync-btn" type="button">Demo Sync</button>
+            <button id="exportBtn" class="ghost-btn" type="button">Export</button>
+            <label class="ghost-btn import-label">
+              <input id="importInput" type="file" accept="application/json" />
+              Import
+            </label>
+          </div>
+        </div>
+
+        <section class="metrics-panel" aria-label="Task summary">
+          <article class="metric-card">
+            <span class="metric-label">Total</span>
+            <strong id="totalTasks">0</strong>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Completed</span>
+            <strong id="completedTasks">0</strong>
+          </article>
+          <article class="metric-card accent">
+            <span class="metric-label">Remaining</span>
+            <strong id="remainingTasks">0</strong>
+          </article>
+        </section>
+
+        <section class="insight-panel" aria-label="Productivity insights">
+          <div class="insight-header">
+            <h2>Smart insights</h2>
+            <span class="mini-tag">Auto-updated</span>
+          </div>
+          <div id="insightGrid" class="insight-grid"></div>
+        </section>
+
+        <section class="analytics-panel" aria-label="Task progress analytics">
+          <div class="analytics-header">
+            <h2>Productivity overview</h2>
+            <span id="syncStatus" class="sync-pill">Saved locally</span>
+          </div>
+          <div class="progress-block">
+            <div class="progress-meta">
+              <span>Goal completion</span>
+              <strong id="completionRate">0%</strong>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <span id="progressFill" class="progress-fill"></span>
+            </div>
+          </div>
+          <div id="categoryBreakdown" class="category-breakdown" aria-label="Category progress"></div>
+        </section>
+
+        <form id="todo-form" class="todo-form" autocomplete="off">
+          <label class="sr-only" for="todo-input">Add a new task</label>
+          <input
+            id="todo-input"
+            name="todo"
+            type="text"
+            maxlength="120"
+            placeholder="Add a task..."
+            aria-label="Add a task"
+          />
+          <label class="sr-only" for="category-input">Task category</label>
+          <select id="category-input" name="category" aria-label="Task category">
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="study">Study</option>
+          </select>
+          <label class="sr-only" for="recurrence-input">Task recurrence</label>
+          <select id="recurrence-input" name="recurrence" aria-label="Task recurrence">
+            <option value="none" selected>Once</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+          <label class="sr-only" for="due-date-input">Due date</label>
+          <input id="due-date-input" name="dueDate" type="date" aria-label="Due date" />
+          <label class="sr-only" for="reminder-input">Reminder</label>
+          <input id="reminder-input" name="reminder" type="datetime-local" aria-label="Reminder" />
+          <label class="sr-only" for="priority-input">Task priority</label>
+          <select id="priority-input" name="priority" aria-label="Task priority">
+            <option value="high">High</option>
+            <option value="medium" selected>Medium</option>
+            <option value="low">Low</option>
+          </select>
+          <button type="submit" class="primary-btn">Add</button>
+        </form>
+
+        <div class="quick-actions" aria-label="Quick task shortcuts">
+          <button class="quick-pill" type="button" data-quick-task="Deep work session">Deep work</button>
+          <button class="quick-pill" type="button" data-quick-task="Follow up on emails">Follow-up</button>
+          <button class="quick-pill" type="button" data-quick-task="Review project progress">Review</button>
+          <button class="quick-pill" type="button" data-quick-task="Workout and recovery">Workout</button>
+        </div>
+
+        <div class="focus-bar">
+          <button id="focusToggle" class="focus-btn" type="button">Focus mode off</button>
+          <span id="focusHint" class="focus-hint">Showing all tasks</span>
+        </div>
+
+        <div class="toolbar" aria-label="Task controls">
+          <div class="search-bar-wrapper">
+            <label class="sr-only" for="searchInput">Search tasks</label>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Search tasks..."
+              aria-label="Search tasks"
+            />
+          </div>
+          <label class="sr-only" for="sortInput">Sort tasks</label>
+          <select id="sortInput" class="sort-select" aria-label="Sort tasks">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="priority">Priority</option>
+            <option value="dueSoon">Due soon</option>
+          </select>
+        </div>
+
+        <div class="toolbar" aria-label="Task filters">
+          <div class="filter-group" role="tablist" aria-label="Filter tasks">
+            <button class="filter-btn active" type="button" data-filter="all" role="tab" aria-selected="true">
+              All
+            </button>
+            <button class="filter-btn" type="button" data-filter="active" role="tab" aria-selected="false">
+              Active
+            </button>
+            <button class="filter-btn" type="button" data-filter="completed" role="tab" aria-selected="false">
+              Completed
+            </button>
+            <button class="filter-btn" type="button" data-filter="high" role="tab" aria-selected="false">
+              High priority
+            </button>
+          </div>
+          <button id="clearCompleted" class="secondary-btn" type="button">Clear completed</button>
+        </div>
+
+        <section class="board-panel" aria-label="Task board">
+          <div class="board-header">
+            <h2>Progress board</h2>
+            <p>Drag tasks between stages</p>
+          </div>
+          <div id="boardColumns" class="board-columns"></div>
+        </section>
+
+        <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <template id="todo-item-template">
+      <li class="todo-item">
+        <label class="task-check">
+          <input type="checkbox" class="task-toggle" />
+          <span class="checkmark" aria-hidden="true"></span>
+        </label>
+
+        <div class="task-content">
+          <div class="task-main-row">
+            <span class="task-text"></span>
+            <span class="priority-badge"></span>
+          </div>
+          <div class="task-meta-row">
+            <span class="category-badge"></span>
+            <span class="due-date"></span>
+            <span class="recurrence-badge"></span>
+            <span class="reminder-badge"></span>
+          </div>
+          <div class="subtask-panel">
+            <div class="subtask-list"></div>
+            <div class="subtask-compose">
+              <input type="text" class="subtask-input" maxlength="80" placeholder="Add subtask..." />
+              <button type="button" class="subtask-add-btn">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <input type="text" class="task-edit-input" maxlength="120" style="display: none;" />
+          <button type="button" class="edit-btn" aria-label="Edit task">Edit</button>
+          <button type="button" class="delete-btn" aria-label="Delete task">Delete</button>
+        </div>
+      </li>
+    </template>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
