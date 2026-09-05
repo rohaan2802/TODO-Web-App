@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Demo | Advanced Todo App</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --card: rgba(15, 23, 42, 0.8);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --primary: #8b5cf6;
+        --secondary: #22c55e;
+        --accent: #38bdf8;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: Inter, Arial, sans-serif;
+        background: radial-gradient(circle at top, rgba(139, 92, 246, 0.35), transparent 35%), linear-gradient(135deg, #020817, #111827 60%, #1e1b4b);
+        color: var(--text);
+      }
+
+      .demo-card {
+        width: min(760px, calc(100% - 32px));
+        padding: 48px 32px;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 28px;
+        background: rgba(15, 23, 42, 0.75);
+        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.55);
+        text-align: center;
+        backdrop-filter: blur(12px);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.15);
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        color: #86efac;
+        font-size: 0.82rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 24px 0 12px;
+        font-size: clamp(2.6rem, 6vw, 5rem);
+        line-height: 1;
+        letter-spacing: -0.06em;
+      }
+
+      p {
+        margin: 0 auto 28px;
+        max-width: 620px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        text-decoration: none;
+        border-radius: 14px;
+        padding: 16px 26px;
+        font-weight: 800;
+        font-size: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .primary-btn {
+        background: linear-gradient(135deg, var(--primary), #7c3aed);
+        color: white;
+        box-shadow: 0 18px 28px rgba(139, 92, 246, 0.35);
+      }
+
+      .secondary-btn {
+        background: rgba(148, 163, 184, 0.08);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        color: var(--text);
+      }
+
+      .primary-btn:hover,
+      .secondary-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 640px) {
+        .demo-card {
+          padding: 36px 22px;
+        }
+
+        .actions {
+          flex-direction: column;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="demo-card">
+      <span class="badge">Portfolio Demo</span>
+      <h1>Live Demo</h1>
+      <p>
+        A premium productivity dashboard with analytics, focus mode, recurring tasks, reminders, drag-and-drop workflow,
+        and a responsive interface built for recruiters and portfolio showcases.
+      </p>
+      <div class="actions">
+        <a class="primary-btn" href="./index.html">Open App</a>
+        <a class="secondary-btn" href="https://github.com/rohaan2802/portfolio-todo-app" target="_blank" rel="noreferrer">View GitHub</a>
+      </div>
+    </main>
+  </body>
+</html>

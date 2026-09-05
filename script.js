@@ -3,6 +3,50 @@ const THEME_KEY = 'todoAppTheme';
 const SYNC_KEY = 'todoAppSyncStatus';
 const USER_KEY = 'todoAppUser';
 const PRIORITY_ORDER = { high: 3, medium: 2, low: 1 };
+const DEMO_TASKS = [
+  {
+    id: 101,
+    text: 'Finalize portfolio overview',
+    priority: 'high',
+    category: 'work',
+    dueDate: new Date(Date.now() + 86400000).toISOString().slice(0, 10),
+    reminder: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
+    recurrence: 'none',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 1800000,
+    subtasks: [
+      { id: 1011, text: 'Polish headline', completed: false },
+      { id: 1012, text: 'Review project metrics', completed: true },
+    ],
+  },
+  {
+    id: 102,
+    text: 'Review recruiter follow-up strategy',
+    priority: 'medium',
+    category: 'personal',
+    dueDate: new Date(Date.now() + 172800000).toISOString().slice(0, 10),
+    reminder: new Date(Date.now() + 172800000).toISOString().slice(0, 16),
+    recurrence: 'weekly',
+    completed: false,
+    status: 'inProgress',
+    createdAt: Date.now() - 3600000,
+    subtasks: [{ id: 1021, text: 'Draft message', completed: false }],
+  },
+  {
+    id: 103,
+    text: 'Practice product demo walkthrough',
+    priority: 'high',
+    category: 'study',
+    dueDate: new Date(Date.now() + 259200000).toISOString().slice(0, 10),
+    reminder: new Date(Date.now() + 259200000).toISOString().slice(0, 16),
+    recurrence: 'none',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 7200000,
+    subtasks: [],
+  },
+];
 const BOARD_COLUMNS = [
   { key: 'backlog', label: 'Backlog' },
   { key: 'inProgress', label: 'In Progress' },
@@ -141,11 +185,15 @@ function normalizeTodo(todo) {
 function loadTodos() {
   try {
     const savedTodos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    if (!Array.isArray(savedTodos)) return [];
-    return savedTodos.map(normalizeTodo).filter(Boolean);
+    if (Array.isArray(savedTodos) && savedTodos.length) {
+      return savedTodos.map(normalizeTodo).filter(Boolean);
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(DEMO_TASKS));
+    return DEMO_TASKS.map(normalizeTodo).filter(Boolean);
   } catch (error) {
     console.error('Failed to load todos:', error);
-    return [];
+    return DEMO_TASKS.map(normalizeTodo).filter(Boolean);
   }
 }
 
