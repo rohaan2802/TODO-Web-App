@@ -2,7 +2,7 @@
 
 ## Live Demo
 
-[Open Live Demo](https://rohaan2802.github.io/portfolio-todo-app/live-demo.html)
+[Open Live Demo](https://rohaan2802.github.io/TODO-Web-App/live-demo.html)
 
 A polished, recruiter-friendly productivity dashboard built as a front-end web app. It combines task management, focus mode, analytics, drag-and-drop workflow, recurring tasks, reminders, and smart productivity insights in one responsive interface.
 
@@ -85,8 +85,8 @@ The goal is to make it feel premium, usable on any device, and strong enough to 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/rohaan2802/portfolio-todo-app.git
-cd portfolio-todo-app
+git clone https://github.com/rohaan2802/TODO-Web-App.git
+cd TODO-Web-App
 ```
 
 2. Open `index.html` in your browser, or run a simple local server:
@@ -112,7 +112,7 @@ It automatically publishes the static site when changes are pushed to the `main`
 ## GitHub profile and repository
 
 - Profile: https://github.com/rohaan2802
-- Repository: https://github.com/rohaan2802/portfolio-todo-app
+- Repository: https://github.com/rohaan2802/TODO-Web-App
 
 ## Future enhancements
 
