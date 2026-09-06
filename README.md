@@ -1,5 +1,13 @@
 # Advanced Responsive To-Do App
 
+## Project screenshots
+
+The dashboard below shows the responsive task workflow at desktop and mobile widths, including the summary metrics, smart insights, progress board, and task cards.
+
+![To-do dashboard desktop and mobile preview](docs/screenshots/preview.webp)
+
+Individual captures: [desktop](docs/screenshots/desktop.webp) · [mobile](docs/screenshots/mobile.webp)
+
 # LIVE DEMO
 
 [Open Live Web App](https://rohaan2802.github.io/TODO-Web-App/)
