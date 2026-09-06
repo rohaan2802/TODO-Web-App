@@ -1,8 +1,8 @@
 # Advanced Responsive To-Do App
 
-## Live Demo
+# LIVE DEMO
 
-[Open Live Demo](https://rohaan2802.github.io/TODO-Web-App/live-demo.html)
+[Open App](https://rohaan2802.github.io/TODO-Web-App/)
 
 A polished, recruiter-friendly productivity dashboard built as a front-end web app. It combines task management, focus mode, analytics, drag-and-drop workflow, recurring tasks, reminders, and smart productivity insights in one responsive interface.
 
