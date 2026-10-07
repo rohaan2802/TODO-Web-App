@@ -8,7 +8,7 @@ https://rohaan2802.github.io/TODO-Web-App/
 
 ## Feature screenshots
 
-Below are **15 tightly cropped screenshots** � each shows only the UI for that heading (no full-page chrome, side margins, or empty background).
+Below are **15 tightly cropped screenshots** — each shows only the UI for that heading (no full-page chrome, side margins, or empty background).
 
 ### 1. Dashboard overview
 
@@ -48,7 +48,7 @@ One-click pills for frequent workflows (deep work, follow-up, review, workout) w
 
 ### 7. Focus mode
 
-Focus mode hides clutter and keeps only today’s active priorities visible.
+Focus mode hides clutter and keeps only today's active priorities visible.
 
 ![Focus mode](docs/screenshots/07-focus-mode.png)
 
@@ -66,7 +66,7 @@ Global tabs for All / Active / Completed / High priority to slice the backlog in
 
 ### 10. Progress board
 
-Kanban-style board with **Backlog → In Progress → Done** and drag-and-drop status movement.
+Kanban-style board with **Backlog, In Progress, Done** and drag-and-drop status movement.
 
 ![Progress board](docs/screenshots/10-progress-board.png)
 
@@ -131,7 +131,7 @@ The goal is to make it feel premium, usable on any device, and strong enough to 
 The top of the app is a decision surface, not just decoration.
 
 - **Total / Completed / Remaining** cards recalculate after every create, edit, complete, delete, import, or board move.
-- A **completion rate** percentage and progress fill show how close the current cycle is to “inbox zero.”
+- A **completion rate** percentage and progress fill show how close the current cycle is to â€œinbox zero.â€
 - Category rows visualize how work is distributed across `work`, `personal`, and `study`.
 
 ### Smart insights
@@ -140,12 +140,12 @@ Insight cards translate raw counts into coaching-style notes:
 
 | Insight | What it measures | Why it helps |
 | --- | --- | --- |
-| Focus score | Completed ÷ total | Momentum signal for the current backlog |
+| Focus score | Completed Ã· total | Momentum signal for the current backlog |
 | High priority | Count of `high` tasks | Risk / urgency load |
 | Due today | Tasks dated today | Same-day execution pressure |
 | Completed this week | Recently finished work | Weekly execution proof |
 
-Each card includes a short note (for example “Excellent momentum” or “Needs attention”) so recruiters can see UX copy, not only numbers.
+Each card includes a short note (for example â€œExcellent momentumâ€ or â€œNeeds attentionâ€) so recruiters can see UX copy, not only numbers.
 
 ### Task management
 
@@ -175,7 +175,7 @@ Backdrop click and `Escape` cancel the dialog. This prevents accidental data los
 
 ### Recurring tasks and due-date extension
 
-This is the “check → date extends” behavior:
+This is the â€œcheck â†’ date extendsâ€ behavior:
 
 1. Create or use a task with recurrence set to daily, weekly, or monthly.
 2. Mark the task complete (checkbox).
@@ -197,7 +197,7 @@ Reminders use the browser clock. When a reminder time is reached (while the tab 
 - Drag a board card (or list item) onto another stage to update status
 - Completing via board/list keeps analytics and list filters in sync
 - Filter tabs: All, Active, Completed, High Priority
-- **Focus mode** reduces noise to today’s open work
+- **Focus mode** reduces noise to todayâ€™s open work
 
 ### Export / Import
 
@@ -209,7 +209,7 @@ Reminders use the browser clock. When a reminder time is reached (while the tab 
 
 - Light/dark theme toggle persisted in `localStorage`
 - Workspace name field for personalizing the demo identity
-- “Demo Sync” saves workspace metadata locally (no cloud account required)
+- â€œDemo Syncâ€ saves workspace metadata locally (no cloud account required)
 
 ## Seeded demo tasks
 
@@ -238,15 +238,15 @@ This makes screenshots, demos, and recruiter walkthroughs useful immediately.
 
 ```text
 .
-├── index.html                 # App structure, composer, board, confirm modal
-├── style.css                  # Responsive styling + confirmation dialog
-├── script.js                  # State, analytics, recurrence, confirms, storage
-├── live-demo.html             # Pages entry helper
-├── README.md                  # Documentation + feature screenshots
-├── docs/screenshots/          # 15 feature screenshots
-├── .gitignore
-└── .github/workflows/
-    └── deploy-pages.yml
+â”œâ”€â”€ index.html                 # App structure, composer, board, confirm modal
+â”œâ”€â”€ style.css                  # Responsive styling + confirmation dialog
+â”œâ”€â”€ script.js                  # State, analytics, recurrence, confirms, storage
+â”œâ”€â”€ live-demo.html             # Pages entry helper
+â”œâ”€â”€ README.md                  # Documentation + feature screenshots
+â”œâ”€â”€ docs/screenshots/          # 15 feature screenshots
+â”œâ”€â”€ .gitignore
+â””â”€â”€ .github/workflows/
+    â””â”€â”€ deploy-pages.yml
 ```
 
 ## Local setup
