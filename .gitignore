@@ -8,3 +8,9 @@ Thumbs.db
 
 # Temporary files
 *.log
+
+# Local tooling (screenshots captured separately)
+node_modules/
+package-lock.json
+package.json
+scripts/capture-screenshots.mjs

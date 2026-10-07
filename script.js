@@ -1,16 +1,25 @@
-﻿const STORAGE_KEY = 'todoAppTasks';
+﻿const STORAGE_KEY = 'todoAppTasks_v3';
 const THEME_KEY = 'todoAppTheme';
 const SYNC_KEY = 'todoAppSyncStatus';
 const USER_KEY = 'todoAppUser';
 const PRIORITY_ORDER = { high: 3, medium: 2, low: 1 };
+
+function daysFromNow(days) {
+  return new Date(Date.now() + days * 86400000).toISOString().slice(0, 10);
+}
+
+function hoursFromNow(hours) {
+  return new Date(Date.now() + hours * 3600000).toISOString().slice(0, 16);
+}
+
 const DEMO_TASKS = [
   {
     id: 101,
     text: 'Finalize portfolio overview',
     priority: 'high',
     category: 'work',
-    dueDate: new Date(Date.now() + 86400000).toISOString().slice(0, 10),
-    reminder: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
+    dueDate: daysFromNow(1),
+    reminder: hoursFromNow(20),
     recurrence: 'none',
     completed: false,
     status: 'backlog',
@@ -22,11 +31,11 @@ const DEMO_TASKS = [
   },
   {
     id: 102,
-    text: 'Review recruiter follow-up strategy',
+    text: 'Weekly recruiter follow-up',
     priority: 'medium',
     category: 'personal',
-    dueDate: new Date(Date.now() + 172800000).toISOString().slice(0, 10),
-    reminder: new Date(Date.now() + 172800000).toISOString().slice(0, 16),
+    dueDate: daysFromNow(2),
+    reminder: hoursFromNow(30),
     recurrence: 'weekly',
     completed: false,
     status: 'inProgress',
@@ -38,13 +47,175 @@ const DEMO_TASKS = [
     text: 'Practice product demo walkthrough',
     priority: 'high',
     category: 'study',
-    dueDate: new Date(Date.now() + 259200000).toISOString().slice(0, 10),
-    reminder: new Date(Date.now() + 259200000).toISOString().slice(0, 16),
+    dueDate: daysFromNow(3),
+    reminder: hoursFromNow(48),
     recurrence: 'none',
     completed: false,
     status: 'backlog',
     createdAt: Date.now() - 7200000,
     subtasks: [],
+  },
+  {
+    id: 104,
+    text: 'Daily standup notes',
+    priority: 'medium',
+    category: 'work',
+    dueDate: daysFromNow(0),
+    reminder: hoursFromNow(4),
+    recurrence: 'daily',
+    completed: false,
+    status: 'inProgress',
+    createdAt: Date.now() - 900000,
+    subtasks: [
+      { id: 1041, text: 'Blockers list', completed: false },
+      { id: 1042, text: 'Wins from yesterday', completed: true },
+    ],
+  },
+  {
+    id: 105,
+    text: 'Read system design chapter',
+    priority: 'low',
+    category: 'study',
+    dueDate: daysFromNow(4),
+    reminder: '',
+    recurrence: 'none',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 5400000,
+    subtasks: [],
+  },
+  {
+    id: 106,
+    text: 'Ship landing-page copy refresh',
+    priority: 'high',
+    category: 'work',
+    dueDate: daysFromNow(1),
+    reminder: hoursFromNow(12),
+    recurrence: 'none',
+    completed: false,
+    status: 'inProgress',
+    createdAt: Date.now() - 10800000,
+    subtasks: [{ id: 1061, text: 'Hero rewrite', completed: false }],
+  },
+  {
+    id: 107,
+    text: 'Monthly budget review',
+    priority: 'medium',
+    category: 'personal',
+    dueDate: daysFromNow(5),
+    reminder: hoursFromNow(72),
+    recurrence: 'monthly',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 14400000,
+    subtasks: [],
+  },
+  {
+    id: 108,
+    text: 'Workout and recovery',
+    priority: 'low',
+    category: 'personal',
+    dueDate: daysFromNow(0),
+    reminder: '',
+    recurrence: 'daily',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 600000,
+    subtasks: [],
+  },
+  {
+    id: 109,
+    text: 'Prepare interview case study slides',
+    priority: 'high',
+    category: 'study',
+    dueDate: daysFromNow(2),
+    reminder: hoursFromNow(36),
+    recurrence: 'none',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 21600000,
+    subtasks: [
+      { id: 1091, text: 'Outline story arc', completed: true },
+      { id: 1092, text: 'Add metrics screenshots', completed: false },
+    ],
+  },
+  {
+    id: 110,
+    text: 'Clean inbox to zero',
+    priority: 'medium',
+    category: 'work',
+    dueDate: daysFromNow(-1),
+    reminder: '',
+    recurrence: 'none',
+    completed: true,
+    status: 'done',
+    createdAt: Date.now() - 43200000,
+    subtasks: [],
+  },
+  {
+    id: 111,
+    text: 'Update GitHub README badges',
+    priority: 'low',
+    category: 'work',
+    dueDate: daysFromNow(6),
+    reminder: '',
+    recurrence: 'none',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 8000000,
+    subtasks: [],
+  },
+  {
+    id: 112,
+    text: 'Practice LeetCode medium set',
+    priority: 'high',
+    category: 'study',
+    dueDate: daysFromNow(0),
+    reminder: hoursFromNow(6),
+    recurrence: 'weekly',
+    completed: false,
+    status: 'inProgress',
+    createdAt: Date.now() - 1200000,
+    subtasks: [{ id: 1121, text: 'Two-pointer review', completed: false }],
+  },
+  {
+    id: 113,
+    text: 'Family weekend planning',
+    priority: 'medium',
+    category: 'personal',
+    dueDate: daysFromNow(3),
+    reminder: hoursFromNow(50),
+    recurrence: 'none',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 2500000,
+    subtasks: [],
+  },
+  {
+    id: 114,
+    text: 'Refactor todo analytics helpers',
+    priority: 'medium',
+    category: 'work',
+    dueDate: daysFromNow(2),
+    reminder: '',
+    recurrence: 'none',
+    completed: false,
+    status: 'done',
+    createdAt: Date.now() - 30000000,
+    subtasks: [],
+  },
+  {
+    id: 115,
+    text: 'Deep work: architecture notes',
+    priority: 'high',
+    category: 'study',
+    dueDate: daysFromNow(1),
+    reminder: hoursFromNow(10),
+    recurrence: 'none',
+    completed: false,
+    status: 'backlog',
+    createdAt: Date.now() - 450000,
+    subtasks: [{ id: 1151, text: 'Diagram data flow', completed: false }],
   },
 ];
 const BOARD_COLUMNS = [
@@ -86,6 +257,53 @@ const focusHint = document.querySelector('#focusHint');
 const syncStatus = document.querySelector('#syncStatus');
 const userNameInput = document.querySelector('#userNameInput');
 const quickPills = document.querySelectorAll('.quick-pill');
+const confirmModal = document.querySelector('#confirmModal');
+const confirmTitle = document.querySelector('#confirmTitle');
+const confirmMessage = document.querySelector('#confirmMessage');
+const confirmOk = document.querySelector('#confirmOk');
+const confirmCancel = document.querySelector('#confirmCancel');
+
+let confirmResolver = null;
+
+function askConfirm(title, message, okLabel = 'OK') {
+  return new Promise((resolve) => {
+    if (!confirmModal) {
+      resolve(window.confirm(`${title}\n\n${message}`));
+      return;
+    }
+
+    confirmResolver = resolve;
+    if (confirmTitle) confirmTitle.textContent = title;
+    if (confirmMessage) confirmMessage.textContent = message;
+    if (confirmOk) confirmOk.textContent = okLabel;
+    confirmModal.hidden = false;
+    confirmOk?.focus();
+  });
+}
+
+function closeConfirm(result) {
+  if (!confirmModal) return;
+  confirmModal.hidden = true;
+  if (confirmResolver) {
+    confirmResolver(result);
+    confirmResolver = null;
+  }
+}
+
+if (confirmOk) {
+  confirmOk.addEventListener('click', () => closeConfirm(true));
+}
+if (confirmCancel) {
+  confirmCancel.addEventListener('click', () => closeConfirm(false));
+}
+confirmModal?.querySelectorAll('[data-confirm-cancel]').forEach((el) => {
+  el.addEventListener('click', () => closeConfirm(false));
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && confirmModal && !confirmModal.hidden) {
+    closeConfirm(false);
+  }
+});
 
 function initTheme() {
   const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
@@ -404,7 +622,7 @@ function addRecurrence(dateString, recurrence) {
     next.setMonth(next.getMonth() + 1);
   }
 
-  return next.toISOString().slice(0, 16);
+  return next.toISOString().slice(0, 10);
 }
 
 function renderBoard() {
@@ -616,8 +834,14 @@ function renderTodos() {
     });
 
     let isEditing = false;
-    editBtn.addEventListener('click', () => {
+    editBtn.addEventListener('click', async () => {
       if (!isEditing) {
+        const allowed = await askConfirm(
+          'Edit this task?',
+          `Do you want to edit "${todo.text}"?`,
+          'Edit'
+        );
+        if (!allowed) return;
         isEditing = true;
         text.style.display = 'none';
         editInput.style.display = 'block';
@@ -626,7 +850,7 @@ function renderTodos() {
         editBtn.textContent = 'Save';
         return;
       }
-      saveEdit(todo.id, editInput.value);
+      await saveEdit(todo.id, editInput.value);
     });
 
     editInput.addEventListener('keydown', (event) => {
@@ -645,13 +869,20 @@ function renderTodos() {
       editBtn.textContent = 'Edit';
     }
 
-    function saveEdit(id, newText) {
+    async function saveEdit(id, newText) {
       const trimmed = newText.trim();
       if (!trimmed) {
         showToast('Task cannot be empty', 'error');
         editInput.focus();
         return;
       }
+
+      const allowed = await askConfirm(
+        'Save changes?',
+        `Update task to "${trimmed}"?`,
+        'Save'
+      );
+      if (!allowed) return;
 
       updateTodoText(id, trimmed);
       isEditing = false;
@@ -661,7 +892,13 @@ function renderTodos() {
       showToast('Task updated successfully');
     }
 
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.addEventListener('click', async () => {
+      const allowed = await askConfirm(
+        'Delete this task?',
+        `Are you sure you want to delete "${todo.text}"? This cannot be undone.`,
+        'Delete'
+      );
+      if (!allowed) return;
       deleteTodo(todo.id);
     });
 
@@ -695,17 +932,21 @@ function moveTaskToStatus(id, status) {
 }
 
 function toggleTodo(id) {
+  let rolledForwardMessage = '';
+
   state.todos = state.todos.map((todo) => {
     if (todo.id !== id) return todo;
 
     const nextCompleted = !todo.completed;
 
     if (nextCompleted && todo.recurrence !== 'none') {
+      const nextDue = addRecurrence(todo.dueDate || new Date().toISOString().slice(0, 10), todo.recurrence);
+      rolledForwardMessage = `Recurring (${todo.recurrence}): due date moved to ${formatDueDate(nextDue)}`;
       return {
         ...todo,
         completed: false,
         status: 'backlog',
-        dueDate: addRecurrence(todo.dueDate || new Date().toISOString().slice(0, 10), todo.recurrence),
+        dueDate: nextDue,
         createdAt: Date.now(),
       };
     }
@@ -719,7 +960,7 @@ function toggleTodo(id) {
 
   saveTodos();
   renderTodos();
-  showToast('Task status updated');
+  showToast(rolledForwardMessage || 'Task status updated');
 }
 
 function toggleSubtask(todoId, subtaskId) {
@@ -818,12 +1059,19 @@ function addTodo(text, priority, category, recurrence, dueDate, reminder) {
   }
 }
 
-function clearCompleted() {
+async function clearCompleted() {
   const completedCount = state.todos.filter((todo) => todo.completed || todo.status === 'done').length;
   if (completedCount === 0) {
     showToast('No completed tasks to clear', 'error');
     return;
   }
+
+  const allowed = await askConfirm(
+    'Clear completed tasks?',
+    `Delete ${completedCount} completed task${completedCount === 1 ? '' : 's'}? This cannot be undone.`,
+    'Clear'
+  );
+  if (!allowed) return;
 
   state.todos = state.todos.filter((todo) => !(todo.completed || todo.status === 'done'));
   saveTodos();

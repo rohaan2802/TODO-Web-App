@@ -1345,6 +1345,64 @@ h1 {
   }
 }
 
+.confirm-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.confirm-modal[hidden] {
+  display: none !important;
+}
+
+.confirm-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 20, 0.62);
+  backdrop-filter: blur(4px);
+}
+
+.confirm-card {
+  position: relative;
+  width: min(420px, 100%);
+  border-radius: 18px;
+  padding: 1.35rem 1.4rem 1.2rem;
+  background: var(--card-bg, #121826);
+  border: 1px solid color-mix(in srgb, var(--border, #2a3448) 80%, transparent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  color: var(--text, #e8eefc);
+}
+
+.confirm-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1.1rem;
+}
+
+.confirm-card p {
+  margin: 0 0 1.15rem;
+  opacity: 0.82;
+  line-height: 1.45;
+  font-size: 0.95rem;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.danger-btn {
+  background: #d64545 !important;
+  border-color: #d64545 !important;
+}
+
+.danger-btn:hover {
+  filter: brightness(1.05);
+}
+
 @media (max-width: 360px) {
   h1 {
     font-size: 1.7rem;
