@@ -8,7 +8,7 @@ https://rohaan2802.github.io/TODO-Web-App/
 
 ## Feature screenshots
 
-Below are **15 tightly cropped screenshots** — each shows only the UI for that heading (no full-page chrome, side margins, or empty background).
+Below are **15 tightly cropped screenshots** ? each shows only the UI for that heading (no full-page chrome, side margins, or empty background).
 
 ### 1. Dashboard overview
 
@@ -66,7 +66,7 @@ Global tabs for All / Active / Completed / High priority to slice the backlog in
 
 ### 10. Progress board
 
-Kanban-style board with **Backlog, In Progress, Done** and drag-and-drop status movement.
+Kanban-style board with **Backlog ? In Progress ? Done**. **Backlog** = not started / queued. **In Progress** = currently being worked. **Done** = finished. Drag cards between columns to move work.
 
 ![Progress board](docs/screenshots/10-progress-board.png)
 
@@ -78,7 +78,7 @@ Rich task cards with priority badges, categories, due dates, recurrence labels, 
 
 ### 12. Recurring due-date roll-forward
 
-Checking a recurring task does **not** permanently complete it. Instead the **due date extends** (daily / weekly / monthly) and the task stays active for the next cycle.
+Only tasks marked **Daily / Weekly / Monthly** do this. Checking the box does **not** permanently complete them ? the **due date extends** to the next cycle and the task stays active. **Once** tasks complete normally with no date change.
 
 ![Recurring date extend](docs/screenshots/12-recurring-date-extend.png)
 
@@ -131,7 +131,7 @@ The goal is to make it feel premium, usable on any device, and strong enough to 
 The top of the app is a decision surface, not just decoration.
 
 - **Total / Completed / Remaining** cards recalculate after every create, edit, complete, delete, import, or board move.
-- A **completion rate** percentage and progress fill show how close the current cycle is to â€œinbox zero.â€
+- A **completion rate** percentage and progress fill show how close the current cycle is to “inbox zero.”
 - Category rows visualize how work is distributed across `work`, `personal`, and `study`.
 
 ### Smart insights
@@ -140,12 +140,12 @@ Insight cards translate raw counts into coaching-style notes:
 
 | Insight | What it measures | Why it helps |
 | --- | --- | --- |
-| Focus score | Completed Ã· total | Momentum signal for the current backlog |
+| Focus score | Completed ÷ total | Momentum signal for the current backlog |
 | High priority | Count of `high` tasks | Risk / urgency load |
 | Due today | Tasks dated today | Same-day execution pressure |
 | Completed this week | Recently finished work | Weekly execution proof |
 
-Each card includes a short note (for example â€œExcellent momentumâ€ or â€œNeeds attentionâ€) so recruiters can see UX copy, not only numbers.
+Each card includes a short note (for example “Excellent momentum” or “Needs attention”) so recruiters can see UX copy, not only numbers.
 
 ### Task management
 
@@ -173,31 +173,137 @@ Destructive and mutation flows are protected:
 
 Backdrop click and `Escape` cancel the dialog. This prevents accidental data loss during demos.
 
-### Recurring tasks and due-date extension
+### Progress board stages: Backlog, In Progress, Done
 
-This is the â€œcheck â†’ date extendsâ€ behavior:
+The **Progress board** is a Kanban-style workflow. Every task always sits in exactly one stage. You can drag cards between columns (or change status via completion) to move work through the pipeline.
 
-1. Create or use a task with recurrence set to daily, weekly, or monthly.
-2. Mark the task complete (checkbox).
-3. Instead of staying completed, the app:
+#### What counts as Backlog work?
+
+**Backlog** = work that is planned but **not started yet**.
+
+Typical backlog tasks:
+- Ideas and queued work waiting for capacity
+- Tasks you intend to do later this week
+- Items that are blocked or not prioritized for ?right now?
+- Newly added tasks (default stage when you create a task)
+
+In this app, backlog means:
+- `status: "backlog"`
+- usually **not completed**
+- visible in the **Backlog** column on the board
+- still counted in Remaining (unless completed)
+
+Examples from the seeded demo:
+- ?Finalize portfolio overview?
+- ?Practice product demo walkthrough?
+- ?Read system design chapter?
+
+Use Backlog when the task exists on your radar, but you have not actively started executing it.
+
+#### What counts as In Progress work?
+
+**In Progress** = work you are **currently executing**.
+
+Typical in-progress tasks:
+- The task open on your screen right now
+- Work already started, partially done, or mid-session
+- Items with active subtasks being checked off
+- Recurring routines you are handling in this cycle (for example today?s standup)
+
+In this app, in progress means:
+- `status: "inProgress"`
+- not finished yet
+- visible in the **In Progress** column
+- still counted as Remaining until completed / rolled forward
+
+Examples from the seeded demo:
+- ?Weekly recruiter follow-up?
+- ?Daily standup notes?
+- ?Ship landing-page copy refresh?
+- ?Practice LeetCode medium set?
+
+Use In Progress when the task has left ?waiting? and entered ?doing.?
+
+#### What counts as Done work?
+
+**Done** = finished for this cycle (or permanently finished if it is a one-time task).
+
+- `status: "done"` and/or `completed: true`
+- appears in the **Done** column
+- counted under Completed metrics
+- can be removed in bulk with **Clear completed** (after confirmation)
+
+#### How tasks move between stages
+
+1. **Drag and drop** a board card onto another column.
+2. **Check the task checkbox**:
+   - one-time task ? moves to Done
+   - recurring task ? due date rolls forward and task returns toward Backlog for the next cycle (see below)
+3. Filters / Focus mode change *visibility*, not the underlying stage meaning.
+
+| Stage | Meaning | When to use | Board column |
+| --- | --- | --- | --- |
+| Backlog | Queued / not started | Future or waiting work | Backlog |
+| In Progress | Actively being worked | Current focus session | In Progress |
+| Done | Finished | Completed outcomes | Done |
+
+### Recurring tasks and due-date extension (check ? date moves forward)
+
+This is the special behavior: **on some checkboxes, completing the task advances the due date instead of leaving it permanently completed.**
+
+#### Which tasks do this?
+
+Only tasks whose recurrence is **not** `Once`:
+
+| Recurrence badge | Checkbox behavior | Due date change |
+| --- | --- | --- |
+| **Once** (`none`) | Normal complete ? Done | No date change |
+| **Daily** | Stays active for next day | Due date + **1 day** |
+| **Weekly** | Stays active for next week | Due date + **7 days** |
+| **Monthly** | Stays active for next month | Due date + **1 month** |
+
+So: if the task card shows **Daily**, **Weekly**, or **Monthly**, checking it triggers date roll-forward. If it shows **One-time** / Once, checking it completes normally.
+
+#### Exact flow when you click the checkbox on a recurring task
+
+1. You click the task checkbox.
+2. The app detects `recurrence` is `daily`, `weekly`, or `monthly`.
+3. It does **not** keep the task in a permanent Completed/Done state for that cycle end.
+4. Instead it:
    - keeps the task **active**
-   - resets status toward the next cycle
-   - **moves `dueDate` forward** by 1 day / 7 days / 1 month
-   - shows a toast explaining the new due date
+   - sets status back toward **Backlog** for the next cycle
+   - computes a new `dueDate` with `addRecurrence(...)`
+   - shows a toast such as: `Recurring (weekly): due date moved to ?`
+5. Analytics stay consistent because the task is still open work for the next occurrence.
 
-One-time tasks (`recurrence: none`) complete normally and move to Done.
+#### Demo tasks you can use to try it
+
+Seeded recurring examples:
+- **Daily standup notes** (`daily`) ? check ? due date becomes tomorrow
+- **Workout and recovery** (`daily`)
+- **Weekly recruiter follow-up** (`weekly`) ? check ? due date jumps ~7 days
+- **Practice LeetCode medium set** (`weekly`)
+- **Monthly budget review** (`monthly`) ? check ? due date jumps ~1 month
+
+One-time contrast example:
+- **Finalize portfolio overview** (`none` / Once) ? check ? moves to Done, date does **not** extend
+
+#### Why this design exists
+
+Recurring work (standups, workouts, weekly follow-ups) should not disappear after one check. Checking means ?done for this occurrence,? so the app schedules the **next occurrence** by extending the due date automatically.
 
 ### Reminders and toasts
 
-Reminders use the browser clock. When a reminder time is reached (while the tab is open), a toast surfaces the task title. Action toasts also confirm adds, edits, deletes, imports, exports, focus toggles, and board moves.
+Reminders use the browser clock. When a reminder time is reached (while the tab is open), a toast surfaces the task title. Action toasts also confirm adds, edits, deletes, imports, exports, focus toggles, board moves, and recurring date roll-forwards.
 
-### Workflow organization
+### Workflow organization (summary)
 
-- **Progress board** stages: Backlog, In Progress, Done
-- Drag a board card (or list item) onto another stage to update status
+- **Progress board** stages: Backlog (queued), In Progress (active), Done (finished)
+- Drag a board card onto another stage to update status
 - Completing via board/list keeps analytics and list filters in sync
+- Recurring checkbox completion rolls the due date forward (daily/weekly/monthly only)
 - Filter tabs: All, Active, Completed, High Priority
-- **Focus mode** reduces noise to todayâ€™s open work
+- **Focus mode** reduces noise to today's open work
 
 ### Export / Import
 
@@ -209,7 +315,7 @@ Reminders use the browser clock. When a reminder time is reached (while the tab 
 
 - Light/dark theme toggle persisted in `localStorage`
 - Workspace name field for personalizing the demo identity
-- â€œDemo Syncâ€ saves workspace metadata locally (no cloud account required)
+- "Demo Sync" saves workspace metadata locally (no cloud account required)
 
 ## Seeded demo tasks
 
@@ -238,15 +344,15 @@ This makes screenshots, demos, and recruiter walkthroughs useful immediately.
 
 ```text
 .
-â”œâ”€â”€ index.html                 # App structure, composer, board, confirm modal
-â”œâ”€â”€ style.css                  # Responsive styling + confirmation dialog
-â”œâ”€â”€ script.js                  # State, analytics, recurrence, confirms, storage
-â”œâ”€â”€ live-demo.html             # Pages entry helper
-â”œâ”€â”€ README.md                  # Documentation + feature screenshots
-â”œâ”€â”€ docs/screenshots/          # 15 feature screenshots
-â”œâ”€â”€ .gitignore
-â””â”€â”€ .github/workflows/
-    â””â”€â”€ deploy-pages.yml
+├── index.html                 # App structure, composer, board, confirm modal
+├── style.css                  # Responsive styling + confirmation dialog
+├── script.js                  # State, analytics, recurrence, confirms, storage
+├── live-demo.html             # Pages entry helper
+├── README.md                  # Documentation + feature screenshots
+├── docs/screenshots/          # 15 feature screenshots
+├── .gitignore
+└── .github/workflows/
+    └── deploy-pages.yml
 ```
 
 ## Local setup
