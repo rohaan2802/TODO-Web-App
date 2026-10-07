@@ -391,7 +391,7 @@ function normalizeTodo(todo) {
     recurrence,
     status,
     completed: status === 'done' || Boolean(todo.completed),
-    createdAt: Number(todo.createdAt) || Date.now(),
+    createdAt: parseCreatedAt(todo.createdAt),
     subtasks: Array.isArray(todo.subtasks)
       ? todo.subtasks
           .map((subtask) => ({
@@ -1119,6 +1119,32 @@ const EXCEL_HEADERS = [
   'subtasks',
 ];
 
+function formatCreatedAt(value) {
+  const date = new Date(typeof value === 'number' ? value : Number(value) || value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleString(undefined, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+
+function parseCreatedAt(value) {
+  if (value == null || value === '') return Date.now();
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+
+  const raw = String(value).trim();
+  if (/^\d{10,13}$/.test(raw)) {
+    const numeric = Number(raw);
+    return raw.length === 10 ? numeric * 1000 : numeric;
+  }
+
+  const parsed = Date.parse(raw);
+  return Number.isNaN(parsed) ? Date.now() : parsed;
+}
+
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
@@ -1170,7 +1196,7 @@ function todoToRow(todo) {
     recurrence: todo.recurrence || 'none',
     status: todo.status || 'backlog',
     completed: todo.completed ? 'true' : 'false',
-    createdAt: todo.createdAt || '',
+    createdAt: formatCreatedAt(todo.createdAt),
     subtasks: serializeSubtasks(todo.subtasks),
   };
 }
@@ -1186,7 +1212,7 @@ function rowToTodo(row) {
     recurrence: row.recurrence,
     status: row.status,
     completed: String(row.completed).toLowerCase() === 'true' || row.completed === '1' || row.status === 'done',
-    createdAt: row.createdAt,
+    createdAt: parseCreatedAt(row.createdAt),
     subtasks: typeof row.subtasks === 'string' ? parseSubtasks(row.subtasks) : row.subtasks,
   });
 }
@@ -1255,7 +1281,11 @@ function applyImportedTodos(todos, sourceLabel) {
 }
 
 function exportTasksJson() {
-  const blob = new Blob([JSON.stringify(state.todos, null, 2)], { type: 'application/json' });
+  const payload = state.todos.map((todo) => ({
+    ...todo,
+    createdAt: formatCreatedAt(todo.createdAt),
+  }));
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   downloadBlob(blob, 'todo-export.json');
   showToast('Exported as JSON');
   closeIoMenus();

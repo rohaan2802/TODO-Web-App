@@ -22,26 +22,26 @@
 }
 
 [data-theme="light"] {
-  --bg-gradient: linear-gradient(135deg, #dbe4f5 0%, #eef2f7 45%, #e2e8f0 100%);
-  --card-bg: #ffffff;
-  --card-border: #64748b;
-  --surface: #e2e8f0;
-  --surface-hover: #cbd5e1;
+  --bg-gradient: linear-gradient(145deg, #a5b4fc 0%, #c7d2fe 28%, #e0e7ff 58%, #dbeafe 100%);
+  --card-bg: #f8fafc;
+  --card-border: #4f46e5;
+  --surface: #e0e7ff;
+  --surface-hover: #c7d2fe;
   --input-bg: #ffffff;
-  --input-border: #475569;
-  --primary: #312e81;
-  --primary-dark: #1e1b4b;
-  --primary-light: #1e1b4b;
-  --text: #020617;
-  --muted: #1e293b;
-  --border: #64748b;
+  --input-border: #4338ca;
+  --primary: #4338ca;
+  --primary-dark: #3730a3;
+  --primary-light: #3730a3;
+  --text: #0f172a;
+  --muted: #334155;
+  --border: #6366f1;
   --success: #166534;
   --danger: #991b1b;
   --danger-bg: rgba(153, 27, 27, 0.14);
-  --shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
-  --active-tab-bg: #cbd5e1;
-  --item-bg: #f1f5f9;
-  --checkmark-border: #475569;
+  --shadow: 0 18px 42px rgba(49, 46, 129, 0.18);
+  --active-tab-bg: #c7d2fe;
+  --item-bg: #eef2ff;
+  --checkmark-border: #4338ca;
 }
 
 * {
@@ -266,6 +266,76 @@ button {
   background: #fecaca;
   color: #7f1d1d;
   border-color: #b91c1c;
+}
+
+[data-theme="light"] .todo-card {
+  background: rgba(248, 250, 252, 0.96);
+  border-color: #4f46e5;
+  box-shadow: 0 20px 44px rgba(49, 46, 129, 0.16);
+}
+
+[data-theme="light"] .metric-card,
+[data-theme="light"] .insight-card,
+[data-theme="light"] .todo-item,
+[data-theme="light"] .board-task {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+[data-theme="light"] .metric-card:hover,
+[data-theme="light"] .insight-card:hover,
+[data-theme="light"] .todo-item:hover,
+[data-theme="light"] .board-task:hover {
+  border-color: #3730a3;
+  background: #eef2ff;
+  box-shadow: 0 10px 22px rgba(67, 56, 202, 0.16);
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] .ghost-btn:hover,
+[data-theme="light"] .secondary-btn:hover,
+[data-theme="light"] .filter-btn:hover,
+[data-theme="light"] .quick-pill:hover,
+[data-theme="light"] .theme-toggle-btn:hover,
+[data-theme="light"] .edit-btn:hover,
+[data-theme="light"] .sync-btn:hover,
+[data-theme="light"] .io-menu-panel button:hover,
+[data-theme="light"] .io-menu-item:hover {
+  background: #c7d2fe;
+  border-color: #3730a3;
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .primary-btn {
+  background: #4338ca;
+  border-color: #4338ca;
+  color: #ffffff;
+}
+
+[data-theme="light"] .primary-btn:hover {
+  background: #3730a3;
+  border-color: #3730a3;
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .filter-btn.active {
+  background: #4338ca;
+  border-color: #4338ca;
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(67, 56, 202, 0.28);
+}
+
+[data-theme="light"] #todo-input:focus,
+[data-theme="light"] #category-input:focus,
+[data-theme="light"] #recurrence-input:focus,
+[data-theme="light"] #due-date-input:focus,
+[data-theme="light"] #reminder-input:focus,
+[data-theme="light"] #priority-input:focus,
+[data-theme="light"] #searchInput:focus,
+[data-theme="light"] .sort-select:focus,
+[data-theme="light"] .user-name-input:focus {
+  outline: none;
+  border-color: #3730a3;
+  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.22);
 }
 
 [data-theme="light"] .moon-icon {
