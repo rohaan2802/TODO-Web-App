@@ -76,7 +76,7 @@ button {
 }
 
 .app-shell {
-  width: min(100%, 760px);
+  width: min(100%, 1240px);
   max-width: 100%;
   margin: 0 auto;
 }
@@ -434,15 +434,28 @@ h1 {
 
 .todo-form {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: stretch;
   gap: 12px;
   margin-bottom: 18px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
+
+.todo-form > * {
+  flex-shrink: 0;
 }
 
 #todo-input {
-  flex: 1 1 220px;
-  min-width: 0;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 220px;
+  width: auto;
+  min-height: 52px;
   border: 1px solid var(--input-border);
   background: var(--input-bg);
   border-radius: 14px;
@@ -457,8 +470,9 @@ h1 {
 #due-date-input,
 #reminder-input,
 #priority-input {
-  flex: 1 1 120px;
-  min-width: 0;
+  flex: 0 0 auto;
+  min-width: 132px;
+  width: auto;
   border: 1px solid var(--input-border);
   background: var(--input-bg);
   border-radius: 14px;
@@ -467,10 +481,26 @@ h1 {
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
+  min-height: 52px;
+}
+
+#due-date-input {
+  min-width: 148px;
+}
+
+#reminder-input {
+  min-width: 190px;
 }
 
 #priority-input {
-  width: 112px;
+  min-width: 120px;
+  width: 120px;
+}
+
+.todo-form .primary-btn {
+  flex: 0 0 auto;
+  min-width: 96px;
+  min-height: 52px;
 }
 
 #priority-input:focus {
@@ -1189,13 +1219,16 @@ h1 {
   }
 
   .todo-form {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
     gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   #todo-input {
-    grid-column: 1 / -1;
+    min-width: 200px;
+    flex: 1 0 200px;
   }
 
   #category-input,
@@ -1203,8 +1236,8 @@ h1 {
   #due-date-input,
   #reminder-input,
   #priority-input,
-  .primary-btn {
-    width: 100%;
+  .todo-form .primary-btn {
+    width: auto;
   }
 
   .topbar,
@@ -1241,13 +1274,17 @@ h1 {
   }
 
   .todo-form {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
     gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
   }
 
   #todo-input {
-    grid-column: 1 / -1;
+    min-width: 180px;
+    flex: 1 0 180px;
   }
 
   #priority-input,
@@ -1255,11 +1292,8 @@ h1 {
   #due-date-input,
   #reminder-input,
   #recurrence-input,
-  .primary-btn {
-    width: 100%;
-  }
-
-  .primary-btn {
+  .todo-form .primary-btn {
+    width: auto;
     min-height: 48px;
   }
 
@@ -1285,6 +1319,7 @@ h1 {
   .todo-card {
     padding: 18px 14px;
     border-radius: 18px;
+    overflow-x: hidden;
   }
 
   .metrics-panel {
@@ -1296,7 +1331,45 @@ h1 {
   }
 
   .todo-form {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-left: -2px;
+    margin-right: -2px;
+  }
+
+  #todo-input {
+    min-width: 160px;
+    flex: 0 0 200px;
+  }
+
+  #category-input,
+  #recurrence-input,
+  #priority-input {
+    min-width: 118px;
+    flex: 0 0 118px;
+  }
+
+  #due-date-input {
+    min-width: 140px;
+    flex: 0 0 140px;
+  }
+
+  #reminder-input {
+    min-width: 170px;
+    flex: 0 0 170px;
+  }
+
+  .todo-form .primary-btn {
+    min-width: 84px;
+    flex: 0 0 84px;
+    width: auto;
   }
 
   .filter-group {
@@ -1305,12 +1378,6 @@ h1 {
 
   .filter-btn,
   .secondary-btn,
-  .primary-btn,
-  #priority-input,
-  #category-input,
-  #due-date-input,
-  #reminder-input,
-  #recurrence-input,
   #searchInput,
   .sort-select,
   .user-name-input {
