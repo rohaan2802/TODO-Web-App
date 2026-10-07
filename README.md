@@ -8,7 +8,7 @@ https://rohaan2802.github.io/TODO-Web-App/
 
 ## Feature screenshots
 
-Below are **15 screenshots**, each focused on a real feature that ships in this project.
+Below are **15 tightly cropped screenshots** — each shows only the UI for that heading (no full-page chrome, side margins, or empty background).
 
 ### 1. Dashboard overview
 
