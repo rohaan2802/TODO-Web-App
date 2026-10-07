@@ -8,7 +8,7 @@ https://rohaan2802.github.io/TODO-Web-App/
 
 ## Feature screenshots
 
-Below are **15 tightly cropped screenshots** ? each shows only the UI for that heading (no full-page chrome, side margins, or empty background).
+Below are **15 tightly cropped screenshots** - each shows only the UI for that heading (no full-page chrome, side margins, or empty background).
 
 ### 1. Dashboard overview
 
@@ -66,7 +66,7 @@ Global tabs for All / Active / Completed / High priority to slice the backlog in
 
 ### 10. Progress board
 
-Kanban-style board with **Backlog ? In Progress ? Done**. **Backlog** = not started / queued. **In Progress** = currently being worked. **Done** = finished. Drag cards between columns to move work.
+Kanban-style board with **Backlog -> In Progress -> Done**. **Backlog** = not started / queued. **In Progress** = currently being worked. **Done** = finished. Drag cards between columns to move work.
 
 ![Progress board](docs/screenshots/10-progress-board.png)
 
@@ -78,7 +78,7 @@ Rich task cards with priority badges, categories, due dates, recurrence labels, 
 
 ### 12. Recurring due-date roll-forward
 
-Only tasks marked **Daily / Weekly / Monthly** do this. Checking the box does **not** permanently complete them ? the **due date extends** to the next cycle and the task stays active. **Once** tasks complete normally with no date change.
+Only tasks marked **Daily / Weekly / Monthly** do this. Checking the box does **not** permanently complete them - the **due date extends** to the next cycle and the task stays active. **Once** tasks complete normally with no date change.
 
 ![Recurring date extend](docs/screenshots/12-recurring-date-extend.png)
 
@@ -184,7 +184,7 @@ The **Progress board** is a Kanban-style workflow. Every task always sits in exa
 Typical backlog tasks:
 - Ideas and queued work waiting for capacity
 - Tasks you intend to do later this week
-- Items that are blocked or not prioritized for ?right now?
+- Items that are blocked or not prioritized for "right now"
 - Newly added tasks (default stage when you create a task)
 
 In this app, backlog means:
@@ -194,9 +194,9 @@ In this app, backlog means:
 - still counted in Remaining (unless completed)
 
 Examples from the seeded demo:
-- ?Finalize portfolio overview?
-- ?Practice product demo walkthrough?
-- ?Read system design chapter?
+- "Finalize portfolio overview"
+- "Practice product demo walkthrough"
+- "Read system design chapter"
 
 Use Backlog when the task exists on your radar, but you have not actively started executing it.
 
@@ -208,7 +208,7 @@ Typical in-progress tasks:
 - The task open on your screen right now
 - Work already started, partially done, or mid-session
 - Items with active subtasks being checked off
-- Recurring routines you are handling in this cycle (for example today?s standup)
+- Recurring routines you are handling in this cycle (for example today's standup)
 
 In this app, in progress means:
 - `status: "inProgress"`
@@ -217,12 +217,12 @@ In this app, in progress means:
 - still counted as Remaining until completed / rolled forward
 
 Examples from the seeded demo:
-- ?Weekly recruiter follow-up?
-- ?Daily standup notes?
-- ?Ship landing-page copy refresh?
-- ?Practice LeetCode medium set?
+- "Weekly recruiter follow-up"
+- "Daily standup notes"
+- "Ship landing-page copy refresh"
+- "Practice LeetCode medium set"
 
-Use In Progress when the task has left ?waiting? and entered ?doing.?
+Use In Progress when the task has left "waiting" and entered "doing."
 
 #### What counts as Done work?
 
@@ -237,8 +237,8 @@ Use In Progress when the task has left ?waiting? and entered ?doing.?
 
 1. **Drag and drop** a board card onto another column.
 2. **Check the task checkbox**:
-   - one-time task ? moves to Done
-   - recurring task ? due date rolls forward and task returns toward Backlog for the next cycle (see below)
+   - one-time task -> moves to Done
+   - recurring task -> due date rolls forward and task returns toward Backlog for the next cycle (see below)
 3. Filters / Focus mode change *visibility*, not the underlying stage meaning.
 
 | Stage | Meaning | When to use | Board column |
@@ -247,7 +247,7 @@ Use In Progress when the task has left ?waiting? and entered ?doing.?
 | In Progress | Actively being worked | Current focus session | In Progress |
 | Done | Finished | Completed outcomes | Done |
 
-### Recurring tasks and due-date extension (check ? date moves forward)
+### Recurring tasks and due-date extension (check -> date moves forward)
 
 This is the special behavior: **on some checkboxes, completing the task advances the due date instead of leaving it permanently completed.**
 
@@ -257,7 +257,7 @@ Only tasks whose recurrence is **not** `Once`:
 
 | Recurrence badge | Checkbox behavior | Due date change |
 | --- | --- | --- |
-| **Once** (`none`) | Normal complete ? Done | No date change |
+| **Once** (`none`) | Normal complete -> Done | No date change |
 | **Daily** | Stays active for next day | Due date + **1 day** |
 | **Weekly** | Stays active for next week | Due date + **7 days** |
 | **Monthly** | Stays active for next month | Due date + **1 month** |
@@ -273,24 +273,24 @@ So: if the task card shows **Daily**, **Weekly**, or **Monthly**, checking it tr
    - keeps the task **active**
    - sets status back toward **Backlog** for the next cycle
    - computes a new `dueDate` with `addRecurrence(...)`
-   - shows a toast such as: `Recurring (weekly): due date moved to ?`
+   - shows a toast such as: `Recurring (weekly): due date moved to ...`
 5. Analytics stay consistent because the task is still open work for the next occurrence.
 
 #### Demo tasks you can use to try it
 
 Seeded recurring examples:
-- **Daily standup notes** (`daily`) ? check ? due date becomes tomorrow
+- **Daily standup notes** (`daily`) - check -> due date becomes tomorrow
 - **Workout and recovery** (`daily`)
-- **Weekly recruiter follow-up** (`weekly`) ? check ? due date jumps ~7 days
+- **Weekly recruiter follow-up** (`weekly`) - check -> due date jumps ~7 days
 - **Practice LeetCode medium set** (`weekly`)
-- **Monthly budget review** (`monthly`) ? check ? due date jumps ~1 month
+- **Monthly budget review** (`monthly`) - check -> due date jumps ~1 month
 
 One-time contrast example:
-- **Finalize portfolio overview** (`none` / Once) ? check ? moves to Done, date does **not** extend
+- **Finalize portfolio overview** (`none` / Once) - check -> moves to Done, date does **not** extend
 
 #### Why this design exists
 
-Recurring work (standups, workouts, weekly follow-ups) should not disappear after one check. Checking means ?done for this occurrence,? so the app schedules the **next occurrence** by extending the due date automatically.
+Recurring work (standups, workouts, weekly follow-ups) should not disappear after one check. Checking means "done for this occurrence," so the app schedules the **next occurrence** by extending the due date automatically.
 
 ### Reminders and toasts
 
