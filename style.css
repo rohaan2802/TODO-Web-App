@@ -22,26 +22,26 @@
 }
 
 [data-theme="light"] {
-  --bg-gradient: linear-gradient(145deg, #a5b4fc 0%, #c7d2fe 28%, #e0e7ff 58%, #dbeafe 100%);
-  --card-bg: #f8fafc;
-  --card-border: #4f46e5;
+  --bg-gradient: linear-gradient(145deg, #6366f1 0%, #818cf8 30%, #a5b4fc 62%, #c7d2fe 100%);
+  --card-bg: #ffffff;
+  --card-border: #1e1b4b;
   --surface: #e0e7ff;
   --surface-hover: #c7d2fe;
   --input-bg: #ffffff;
-  --input-border: #4338ca;
-  --primary: #4338ca;
-  --primary-dark: #3730a3;
-  --primary-light: #3730a3;
-  --text: #0f172a;
-  --muted: #334155;
-  --border: #6366f1;
-  --success: #166534;
-  --danger: #991b1b;
-  --danger-bg: rgba(153, 27, 27, 0.14);
-  --shadow: 0 18px 42px rgba(49, 46, 129, 0.18);
+  --input-border: #1e293b;
+  --primary: #312e81;
+  --primary-dark: #1e1b4b;
+  --primary-light: #1e1b4b;
+  --text: #020617;
+  --muted: #0f172a;
+  --border: #334155;
+  --success: #14532d;
+  --danger: #7f1d1d;
+  --danger-bg: rgba(127, 29, 29, 0.16);
+  --shadow: 0 22px 48px rgba(30, 27, 75, 0.28);
   --active-tab-bg: #c7d2fe;
-  --item-bg: #eef2ff;
-  --checkmark-border: #4338ca;
+  --item-bg: #f1f5f9;
+  --checkmark-border: #1e293b;
 }
 
 * {
@@ -144,17 +144,24 @@ button {
 [data-theme="light"] .empty-mini,
 [data-theme="light"] .empty-state,
 [data-theme="light"] .due-date,
-[data-theme="light"] .board-column-header span {
+[data-theme="light"] .board-column-header span,
+[data-theme="light"] .board-task-meta,
+[data-theme="light"] .board-empty,
+[data-theme="light"] .progress-meta span,
+[data-theme="light"] .analytics-header h2,
+[data-theme="light"] .insight-header h2 {
   color: #0f172a;
+  font-weight: 700;
 }
 
 [data-theme="light"] .pill,
 [data-theme="light"] .sync-pill,
 [data-theme="light"] .mini-tag,
 [data-theme="light"] .demo-badge {
-  color: #0f172a;
-  border-color: #475569;
+  color: #020617;
+  border: 1px solid #1e293b;
   background: #e2e8f0;
+  font-weight: 700;
 }
 
 [data-theme="light"] .ghost-btn,
@@ -164,22 +171,26 @@ button {
 [data-theme="light"] .theme-toggle-btn,
 [data-theme="light"] .sort-select,
 [data-theme="light"] .user-name-input,
+[data-theme="light"] .sync-btn,
+[data-theme="light"] .quick-pill,
+[data-theme="light"] .focus-btn,
 [data-theme="light"] .io-menu-panel button,
 [data-theme="light"] .io-menu-item {
   color: #020617;
-  border-color: #475569;
-  background: #f8fafc;
+  border: 1.5px solid #1e293b;
+  background: #ffffff;
+  font-weight: 700;
 }
 
 [data-theme="light"] .io-menu-panel {
-  border-color: #64748b;
+  border: 1.5px solid #1e293b;
   background: #ffffff;
 }
 
 [data-theme="light"] .filter-btn.active {
   color: #ffffff;
-  background: #312e81;
-  border-color: #312e81;
+  background: #1e1b4b;
+  border-color: #1e1b4b;
 }
 
 [data-theme="light"] #todo-input,
@@ -188,90 +199,137 @@ button {
 [data-theme="light"] #due-date-input,
 [data-theme="light"] #reminder-input,
 [data-theme="light"] #priority-input,
-[data-theme="light"] #searchInput {
+[data-theme="light"] #searchInput,
+[data-theme="light"] .subtask-input,
+[data-theme="light"] .task-edit-input {
   color: #020617;
-  border-color: #334155;
+  border: 1.5px solid #1e293b;
   background: #ffffff;
+  font-weight: 600;
 }
 
 [data-theme="light"] #todo-input::placeholder,
-[data-theme="light"] #searchInput::placeholder {
-  color: #334155;
+[data-theme="light"] #searchInput::placeholder,
+[data-theme="light"] .subtask-input::placeholder {
+  color: #475569;
+  opacity: 1;
 }
 
 [data-theme="light"] .todo-item,
 [data-theme="light"] .board-task,
 [data-theme="light"] .board-column,
 [data-theme="light"] .metric-card,
-[data-theme="light"] .insight-card {
-  border-color: #64748b;
+[data-theme="light"] .insight-card,
+[data-theme="light"] .workspace-bar,
+[data-theme="light"] .insight-panel,
+[data-theme="light"] .analytics-panel,
+[data-theme="light"] .board-panel {
+  border: 1.5px solid #1e293b;
   background: #ffffff;
 }
 
 [data-theme="light"] .board-column {
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 
 [data-theme="light"] .task-text,
 [data-theme="light"] .insight-value,
 [data-theme="light"] .metric-card strong,
 [data-theme="light"] .board-column-header h3,
+[data-theme="light"] .board-task-header strong,
 [data-theme="light"] h1,
 [data-theme="light"] h2,
 [data-theme="light"] h3 {
   color: #020617;
+  font-weight: 800;
+}
+
+[data-theme="light"] .todo-item.completed .task-text,
+[data-theme="light"] .subtask-item.completed .subtask-text {
+  color: #334155;
+  opacity: 1;
 }
 
 [data-theme="light"] .category-badge {
-  background: #e0e7ff;
+  background: #c7d2fe;
   color: #1e1b4b;
+  border: 1px solid #312e81;
 }
 
 [data-theme="light"] .category-work {
-  background: #bae6fd;
+  background: #7dd3fc;
   color: #0c4a6e;
+  border-color: #0369a1;
 }
 
 [data-theme="light"] .category-personal {
-  background: #e9d5ff;
+  background: #d8b4fe;
   color: #581c87;
+  border-color: #7e22ce;
 }
 
 [data-theme="light"] .category-study {
-  background: #bbf7d0;
+  background: #86efac;
   color: #14532d;
+  border-color: #15803d;
 }
 
 [data-theme="light"] .priority-high {
-  background: #fecaca;
+  background: #fca5a5;
   color: #7f1d1d;
+  border: 1px solid #991b1b;
 }
 
 [data-theme="light"] .priority-medium {
-  background: #fde68a;
+  background: #fcd34d;
   color: #78350f;
+  border: 1px solid #b45309;
 }
 
 [data-theme="light"] .priority-low {
-  background: #bbf7d0;
+  background: #86efac;
   color: #14532d;
+  border: 1px solid #15803d;
 }
 
-[data-theme="light"] .due-date {
+[data-theme="light"] .due-date,
+[data-theme="light"] .recurrence-badge,
+[data-theme="light"] .reminder-badge {
   background: #e2e8f0;
-  border: 1px solid #64748b;
+  color: #020617;
+  border: 1px solid #1e293b;
+  font-weight: 700;
 }
 
 [data-theme="light"] .due-date.overdue {
   background: #fecaca;
   color: #7f1d1d;
-  border-color: #b91c1c;
+  border-color: #991b1b;
 }
 
 [data-theme="light"] .todo-card {
-  background: rgba(248, 250, 252, 0.96);
-  border-color: #4f46e5;
-  box-shadow: 0 20px 44px rgba(49, 46, 129, 0.16);
+  background: #ffffff;
+  border: 2px solid #1e1b4b;
+  box-shadow: 0 24px 50px rgba(30, 27, 75, 0.28);
+}
+
+[data-theme="light"] .checkmark {
+  border: 2.5px solid #1e293b;
+  background: #ffffff;
+}
+
+[data-theme="light"] .task-check input:checked + .checkmark {
+  background: #312e81;
+  border-color: #1e1b4b;
+}
+
+[data-theme="light"] .progress-track {
+  background: #cbd5e1;
+  border: 1px solid #334155;
+}
+
+[data-theme="light"] .progress-fill {
+  background: linear-gradient(90deg, #312e81, #4f46e5);
 }
 
 [data-theme="light"] .metric-card,
@@ -285,9 +343,9 @@ button {
 [data-theme="light"] .insight-card:hover,
 [data-theme="light"] .todo-item:hover,
 [data-theme="light"] .board-task:hover {
-  border-color: #3730a3;
+  border-color: #1e1b4b;
   background: #eef2ff;
-  box-shadow: 0 10px 22px rgba(67, 56, 202, 0.16);
+  box-shadow: 0 12px 24px rgba(30, 27, 75, 0.18);
   transform: translateY(-2px);
 }
 
@@ -298,30 +356,41 @@ button {
 [data-theme="light"] .theme-toggle-btn:hover,
 [data-theme="light"] .edit-btn:hover,
 [data-theme="light"] .sync-btn:hover,
+[data-theme="light"] .focus-btn:hover,
 [data-theme="light"] .io-menu-panel button:hover,
 [data-theme="light"] .io-menu-item:hover {
   background: #c7d2fe;
-  border-color: #3730a3;
-  color: #1e1b4b;
+  border-color: #1e1b4b;
+  color: #020617;
 }
 
-[data-theme="light"] .primary-btn {
-  background: #4338ca;
-  border-color: #4338ca;
+[data-theme="light"] .primary-btn,
+[data-theme="light"] .subtask-add-btn {
+  background: #1e1b4b;
+  border: 1.5px solid #1e1b4b;
   color: #ffffff;
+  font-weight: 700;
 }
 
-[data-theme="light"] .primary-btn:hover {
-  background: #3730a3;
-  border-color: #3730a3;
+[data-theme="light"] .primary-btn:hover,
+[data-theme="light"] .subtask-add-btn:hover {
+  background: #312e81;
+  border-color: #312e81;
   transform: translateY(-1px);
 }
 
 [data-theme="light"] .filter-btn.active {
-  background: #4338ca;
-  border-color: #4338ca;
+  background: #1e1b4b;
+  border-color: #1e1b4b;
   color: #ffffff;
-  box-shadow: 0 6px 14px rgba(67, 56, 202, 0.28);
+  box-shadow: 0 6px 14px rgba(30, 27, 75, 0.3);
+}
+
+[data-theme="light"] .delete-btn {
+  background: #fee2e2;
+  color: #7f1d1d;
+  border: 1.5px solid #991b1b;
+  font-weight: 700;
 }
 
 [data-theme="light"] #todo-input:focus,
@@ -332,14 +401,44 @@ button {
 [data-theme="light"] #priority-input:focus,
 [data-theme="light"] #searchInput:focus,
 [data-theme="light"] .sort-select:focus,
-[data-theme="light"] .user-name-input:focus {
+[data-theme="light"] .user-name-input:focus,
+[data-theme="light"] .subtask-input:focus {
   outline: none;
-  border-color: #3730a3;
-  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.22);
+  border-color: #1e1b4b;
+  box-shadow: 0 0 0 3px rgba(30, 27, 75, 0.25);
 }
 
 [data-theme="light"] .moon-icon {
   display: block;
+}
+
+[data-theme="light"] .metric-card.accent {
+  background: #e0e7ff;
+  border-color: #1e1b4b;
+}
+
+[data-theme="light"] .category-breakdown,
+[data-theme="light"] .category-row,
+[data-theme="light"] .confirm-card {
+  color: #020617;
+  border-color: #1e293b;
+  background: #ffffff;
+}
+
+[data-theme="light"] .confirm-card h3,
+[data-theme="light"] .confirm-card p {
+  color: #020617;
+}
+
+[data-theme="light"] body {
+  color: #020617;
+}
+
+[data-theme="light"] .todo-item,
+[data-theme="light"] .board-task,
+[data-theme="light"] .metric-card,
+[data-theme="light"] .insight-card {
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.08);
 }
 
 .eyebrow {
