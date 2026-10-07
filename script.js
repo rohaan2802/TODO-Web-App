@@ -245,8 +245,12 @@ const searchInput = document.querySelector('#searchInput');
 const sortInput = document.querySelector('#sortInput');
 const toastContainer = document.querySelector('#toastContainer');
 const syncBtn = document.querySelector('#syncBtn');
-const exportBtn = document.querySelector('#exportBtn');
-const importInput = document.querySelector('#importInput');
+const exportMenuBtn = document.querySelector('#exportMenuBtn');
+const exportMenu = document.querySelector('#exportMenu');
+const importMenuBtn = document.querySelector('#importMenuBtn');
+const importMenu = document.querySelector('#importMenu');
+const importJsonInput = document.querySelector('#importJsonInput');
+const importCsvInput = document.querySelector('#importCsvInput');
 const boardColumns = document.querySelector('#boardColumns');
 const completionRateEl = document.querySelector('#completionRate');
 const progressFill = document.querySelector('#progressFill');
@@ -1101,20 +1105,175 @@ function setFilter(filter) {
   renderTodos();
 }
 
-function exportTasks() {
-  const blob = new Blob([JSON.stringify(state.todos, null, 2)], { type: 'application/json' });
+const EXCEL_HEADERS = [
+  'id',
+  'text',
+  'priority',
+  'category',
+  'dueDate',
+  'reminder',
+  'recurrence',
+  'status',
+  'completed',
+  'createdAt',
+  'subtasks',
+];
+
+function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.href = url;
-  anchor.download = 'todo-export.json';
+  anchor.download = filename;
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
   URL.revokeObjectURL(url);
-  showToast('Tasks exported');
 }
 
-function importTasks(file) {
+function closeIoMenus() {
+  if (exportMenu) exportMenu.hidden = true;
+  if (importMenu) importMenu.hidden = true;
+  if (exportMenuBtn) exportMenuBtn.setAttribute('aria-expanded', 'false');
+  if (importMenuBtn) importMenuBtn.setAttribute('aria-expanded', 'false');
+}
+
+function serializeSubtasks(subtasks) {
+  return (subtasks || [])
+    .map((subtask) => `${String(subtask.text || '').replace(/[;|]/g, ' ')}|${subtask.completed ? 1 : 0}`)
+    .join(';');
+}
+
+function parseSubtasks(value) {
+  return String(value || '')
+    .split(';')
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
+    .map((chunk, index) => {
+      const [text, completed] = chunk.split('|');
+      return {
+        id: Date.now() + index + Math.random(),
+        text: String(text || '').trim(),
+        completed: completed === '1' || completed === 'true',
+      };
+    })
+    .filter((subtask) => subtask.text);
+}
+
+function todoToRow(todo) {
+  return {
+    id: todo.id,
+    text: todo.text,
+    priority: todo.priority,
+    category: todo.category,
+    dueDate: todo.dueDate || '',
+    reminder: todo.reminder || '',
+    recurrence: todo.recurrence || 'none',
+    status: todo.status || 'backlog',
+    completed: todo.completed ? 'true' : 'false',
+    createdAt: todo.createdAt || '',
+    subtasks: serializeSubtasks(todo.subtasks),
+  };
+}
+
+function rowToTodo(row) {
+  return normalizeTodo({
+    id: row.id,
+    text: row.text,
+    priority: row.priority,
+    category: row.category,
+    dueDate: row.dueDate,
+    reminder: row.reminder,
+    recurrence: row.recurrence,
+    status: row.status,
+    completed: String(row.completed).toLowerCase() === 'true' || row.completed === '1' || row.status === 'done',
+    createdAt: row.createdAt,
+    subtasks: typeof row.subtasks === 'string' ? parseSubtasks(row.subtasks) : row.subtasks,
+  });
+}
+
+function escapeCsv(value) {
+  const text = String(value ?? '');
+  if (/[",\n\r]/.test(text)) {
+    return `"${text.replace(/"/g, '""')}"`;
+  }
+  return text;
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let current = '';
+  let row = [];
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && next === '"') {
+        current += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === ',' && !inQuotes) {
+      row.push(current);
+      current = '';
+      continue;
+    }
+
+    if ((char === '\n' || char === '\r') && !inQuotes) {
+      if (char === '\r' && next === '\n') i += 1;
+      row.push(current);
+      if (row.some((cell) => String(cell).trim() !== '')) rows.push(row);
+      row = [];
+      current = '';
+      continue;
+    }
+
+    current += char;
+  }
+
+  row.push(current);
+  if (row.some((cell) => String(cell).trim() !== '')) rows.push(row);
+  return rows;
+}
+
+function applyImportedTodos(todos, sourceLabel) {
+  const normalized = todos.map(rowToTodo).filter(Boolean);
+  if (!normalized.length) {
+    throw new Error('No valid tasks found');
+  }
+  state.todos = normalized;
+  saveTodos();
+  renderTodos();
+  setSyncStatus(`Imported from ${sourceLabel}`);
+  showToast(`Tasks imported (${sourceLabel})`);
+}
+
+function exportTasksJson() {
+  const blob = new Blob([JSON.stringify(state.todos, null, 2)], { type: 'application/json' });
+  downloadBlob(blob, 'todo-export.json');
+  showToast('Exported as JSON');
+  closeIoMenus();
+}
+
+function exportTasksCsv() {
+  const lines = [EXCEL_HEADERS.join(',')];
+  state.todos.forEach((todo) => {
+    const row = todoToRow(todo);
+    lines.push(EXCEL_HEADERS.map((header) => escapeCsv(row[header])).join(','));
+  });
+  const blob = new Blob([`\uFEFF${lines.join('\r\n')}`], { type: 'text/csv;charset=utf-8;' });
+  downloadBlob(blob, 'todo-export.csv');
+  showToast('Exported as CSV');
+  closeIoMenus();
+}
+
+function importTasksFromJson(file) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = (event) => {
@@ -1123,14 +1282,45 @@ function importTasks(file) {
       if (!Array.isArray(parsed)) {
         throw new Error('Invalid data');
       }
-      state.todos = parsed.map(normalizeTodo).filter(Boolean);
-      saveTodos();
-      renderTodos();
-      setSyncStatus('Imported from file');
-      showToast('Tasks imported');
+      applyImportedTodos(parsed, 'JSON');
     } catch (error) {
       console.error(error);
-      showToast('Invalid import file', 'error');
+      showToast('Invalid JSON file', 'error');
+    } finally {
+      closeIoMenus();
+    }
+  };
+  reader.readAsText(file);
+}
+
+function importTasksFromCsv(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const text = String(event.target.result || '').replace(/^\uFEFF/, '');
+      const rows = parseCsv(text);
+
+      if (rows.length < 2) {
+        throw new Error('Empty CSV');
+      }
+
+      const headers = rows[0].map((header) => String(header || '').trim());
+      const todos = rows.slice(1).map((cells) => {
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = cells[index] ?? '';
+        });
+        return row;
+      });
+
+      applyImportedTodos(todos, 'CSV');
+    } catch (error) {
+      console.error(error);
+      showToast('Invalid CSV file', 'error');
+    } finally {
+      closeIoMenus();
     }
   };
   reader.readAsText(file);
@@ -1194,8 +1384,35 @@ if (syncBtn) {
   syncBtn.addEventListener('click', syncDemoCloud);
 }
 
-if (exportBtn) {
-  exportBtn.addEventListener('click', exportTasks);
+function toggleIoMenu(button, menu) {
+  const willOpen = menu.hidden;
+  closeIoMenus();
+  menu.hidden = !willOpen;
+  button.setAttribute('aria-expanded', String(willOpen));
+}
+
+if (exportMenuBtn && exportMenu) {
+  exportMenuBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleIoMenu(exportMenuBtn, exportMenu);
+  });
+
+  exportMenu.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const button = event.target.closest('[data-export]');
+    if (!button) return;
+    if (button.dataset.export === 'json') exportTasksJson();
+    if (button.dataset.export === 'csv') exportTasksCsv();
+  });
+}
+
+if (importMenuBtn && importMenu) {
+  importMenuBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleIoMenu(importMenuBtn, importMenu);
+  });
 }
 
 quickPills.forEach((button) => {
@@ -1205,14 +1422,28 @@ quickPills.forEach((button) => {
   });
 });
 
-if (importInput) {
-  importInput.addEventListener('change', (event) => {
+if (importJsonInput) {
+  importJsonInput.addEventListener('change', (event) => {
     if (event.target.files && event.target.files[0]) {
-      importTasks(event.target.files[0]);
+      importTasksFromJson(event.target.files[0]);
       event.target.value = '';
     }
   });
 }
+
+if (importCsvInput) {
+  importCsvInput.addEventListener('change', (event) => {
+    if (event.target.files && event.target.files[0]) {
+      importTasksFromCsv(event.target.files[0]);
+      event.target.value = '';
+    }
+  });
+}
+
+document.addEventListener('click', (event) => {
+  if (event.target.closest('.io-menu')) return;
+  closeIoMenus();
+});
 
 if (userNameInput) {
   userNameInput.addEventListener('change', (event) => {

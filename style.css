@@ -22,26 +22,26 @@
 }
 
 [data-theme="light"] {
-  --bg-gradient: linear-gradient(135deg, #eef3ff 0%, #f9fbff 100%);
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --card-border: rgba(223, 231, 255, 0.85);
-  --surface: #eef3ff;
-  --surface-hover: #e2e8f0;
-  --input-bg: rgba(255, 255, 255, 0.9);
-  --input-border: #dfe7ff;
-  --primary: #5b6cff;
-  --primary-dark: #4356ea;
-  --primary-light: #4356ea;
-  --text: #1d2a4a;
-  --muted: #6c7a99;
-  --border: #dfe7ff;
-  --success: #33b06d;
-  --danger: #ef5d5d;
-  --danger-bg: rgba(239, 93, 93, 0.1);
-  --shadow: 0 24px 50px rgba(91, 108, 255, 0.14);
-  --active-tab-bg: #ffffff;
-  --item-bg: rgba(255, 255, 255, 0.85);
-  --checkmark-border: #b9c4ee;
+  --bg-gradient: linear-gradient(135deg, #dbe4f5 0%, #eef2f7 45%, #e2e8f0 100%);
+  --card-bg: #ffffff;
+  --card-border: #64748b;
+  --surface: #e2e8f0;
+  --surface-hover: #cbd5e1;
+  --input-bg: #ffffff;
+  --input-border: #475569;
+  --primary: #312e81;
+  --primary-dark: #1e1b4b;
+  --primary-light: #1e1b4b;
+  --text: #020617;
+  --muted: #1e293b;
+  --border: #64748b;
+  --success: #166534;
+  --danger: #991b1b;
+  --danger-bg: rgba(153, 27, 27, 0.14);
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+  --active-tab-bg: #cbd5e1;
+  --item-bg: #f1f5f9;
+  --checkmark-border: #475569;
 }
 
 * {
@@ -76,7 +76,7 @@ button {
 }
 
 .app-shell {
-  width: min(100%, 1240px);
+  width: min(100%, calc(1240px - 2rem));
   max-width: 100%;
   margin: 0 auto;
 }
@@ -134,6 +134,140 @@ button {
   display: block;
 }
 
+[data-theme="light"] .eyebrow,
+[data-theme="light"] .metric-label,
+[data-theme="light"] .insight-label,
+[data-theme="light"] .insight-note,
+[data-theme="light"] .workspace-label,
+[data-theme="light"] .focus-hint,
+[data-theme="light"] .board-header p,
+[data-theme="light"] .empty-mini,
+[data-theme="light"] .empty-state,
+[data-theme="light"] .due-date,
+[data-theme="light"] .board-column-header span {
+  color: #0f172a;
+}
+
+[data-theme="light"] .pill,
+[data-theme="light"] .sync-pill,
+[data-theme="light"] .mini-tag,
+[data-theme="light"] .demo-badge {
+  color: #0f172a;
+  border-color: #475569;
+  background: #e2e8f0;
+}
+
+[data-theme="light"] .ghost-btn,
+[data-theme="light"] .secondary-btn,
+[data-theme="light"] .filter-btn,
+[data-theme="light"] .edit-btn,
+[data-theme="light"] .theme-toggle-btn,
+[data-theme="light"] .sort-select,
+[data-theme="light"] .user-name-input,
+[data-theme="light"] .io-menu-panel button,
+[data-theme="light"] .io-menu-item {
+  color: #020617;
+  border-color: #475569;
+  background: #f8fafc;
+}
+
+[data-theme="light"] .io-menu-panel {
+  border-color: #64748b;
+  background: #ffffff;
+}
+
+[data-theme="light"] .filter-btn.active {
+  color: #ffffff;
+  background: #312e81;
+  border-color: #312e81;
+}
+
+[data-theme="light"] #todo-input,
+[data-theme="light"] #category-input,
+[data-theme="light"] #recurrence-input,
+[data-theme="light"] #due-date-input,
+[data-theme="light"] #reminder-input,
+[data-theme="light"] #priority-input,
+[data-theme="light"] #searchInput {
+  color: #020617;
+  border-color: #334155;
+  background: #ffffff;
+}
+
+[data-theme="light"] #todo-input::placeholder,
+[data-theme="light"] #searchInput::placeholder {
+  color: #334155;
+}
+
+[data-theme="light"] .todo-item,
+[data-theme="light"] .board-task,
+[data-theme="light"] .board-column,
+[data-theme="light"] .metric-card,
+[data-theme="light"] .insight-card {
+  border-color: #64748b;
+  background: #ffffff;
+}
+
+[data-theme="light"] .board-column {
+  background: #f1f5f9;
+}
+
+[data-theme="light"] .task-text,
+[data-theme="light"] .insight-value,
+[data-theme="light"] .metric-card strong,
+[data-theme="light"] .board-column-header h3,
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3 {
+  color: #020617;
+}
+
+[data-theme="light"] .category-badge {
+  background: #e0e7ff;
+  color: #1e1b4b;
+}
+
+[data-theme="light"] .category-work {
+  background: #bae6fd;
+  color: #0c4a6e;
+}
+
+[data-theme="light"] .category-personal {
+  background: #e9d5ff;
+  color: #581c87;
+}
+
+[data-theme="light"] .category-study {
+  background: #bbf7d0;
+  color: #14532d;
+}
+
+[data-theme="light"] .priority-high {
+  background: #fecaca;
+  color: #7f1d1d;
+}
+
+[data-theme="light"] .priority-medium {
+  background: #fde68a;
+  color: #78350f;
+}
+
+[data-theme="light"] .priority-low {
+  background: #bbf7d0;
+  color: #14532d;
+}
+
+[data-theme="light"] .due-date {
+  background: #e2e8f0;
+  border: 1px solid #64748b;
+}
+
+[data-theme="light"] .due-date.overdue {
+  background: #fecaca;
+  color: #7f1d1d;
+  border-color: #b91c1c;
+}
+
 [data-theme="light"] .moon-icon {
   display: block;
 }
@@ -177,6 +311,9 @@ h1 {
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--surface);
+  overflow: visible;
+  position: relative;
+  z-index: 5;
 }
 
 .workspace-meta {
@@ -250,6 +387,64 @@ h1 {
 }
 
 .import-label input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.io-menu {
+  position: relative;
+  z-index: 20;
+}
+
+.io-menu-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 50;
+  min-width: 170px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.io-menu-panel[hidden] {
+  display: none !important;
+}
+
+.io-menu-panel button,
+.io-menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  padding: 8px 10px;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.io-menu-panel button:hover,
+.io-menu-item:hover {
+  background: var(--surface-hover);
+}
+
+.io-menu-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.io-menu-item input {
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -1319,7 +1514,7 @@ h1 {
   .todo-card {
     padding: 18px 14px;
     border-radius: 18px;
-    overflow-x: hidden;
+    overflow: visible;
   }
 
   .metrics-panel {

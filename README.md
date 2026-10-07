@@ -119,9 +119,9 @@ The goal is to make it feel premium, usable on any device, and strong enough to 
 - Smart insights panel with progress analytics
 - Focus mode for today's priorities
 - Quick task shortcuts for frequent workflows
-- Export/import for JSON workflow portability
+- Tasks saved as JSON in browser `localStorage` (key `todoAppTasks_v3`)
+- Export/import menus with **JSON** or **CSV** format choices for backups and portability
 - Confirmation dialogs before destructive or edit actions
-- Local persistence using browser storage
 - Seeded demo workspace with 15 sample tasks covering every feature
 
 ## Features (deep dive)
@@ -305,11 +305,29 @@ Reminders use the browser clock. When a reminder time is reached (while the tab 
 - Filter tabs: All, Active, Completed, High Priority
 - **Focus mode** reduces noise to today's open work
 
-### Export / Import
+### How data is saved / edited (browser localStorage)
 
-- **Export** downloads the current task array as JSON
-- **Import** restores a previously exported file
-- Useful for backups or moving a demo dataset between machines/browsers
+There is **no server database**. Everything stays in **your browser**.
+
+| Action | What happens |
+| --- | --- |
+| **Create / edit / complete / delete / board move** | App updates the in-memory task list, then immediately saves the full list as a **JSON string** into `localStorage` (`todoAppTasks_v3`) via `JSON.stringify` |
+| **Page reload / reopen tab** | App reads that key with `JSON.parse` and restores tasks |
+| **Theme / workspace name** | Also stored in `localStorage` (separate keys) |
+
+**If browser localStorage is deleted** (Clear site data, clear cookies/storage, private window closed, different browser/device, or storage wiped by the browser):
+
+- All tasks, theme, and workspace name for this site are **gone**
+- Next visit loads like a fresh install and reseeds the **demo tasks**
+- Cloud sync is **not** used — only a local backup helps: use **Export JSON** or **Export Excel** before clearing storage, then **Import** to restore
+
+### Export / Import (JSON + CSV)
+
+- Click **Export** → choose **JSON (.json)** or **CSV (.csv)**
+- Click **Import** → choose **JSON (.json)** or **CSV (.csv)**, then pick a file
+- CSV opens in Excel / Google Sheets; JSON keeps the full task structure
+- Import **replaces** the current task list in `localStorage` with the file contents
+- Use these for backups or moving data between machines/browsers
 
 ### Theme and workspace chrome
 
@@ -336,7 +354,7 @@ This makes screenshots, demos, and recruiter walkthroughs useful immediately.
 - HTML5
 - CSS3
 - Vanilla JavaScript
-- LocalStorage for persistence
+- LocalStorage + JSON (`JSON.stringify` / `JSON.parse`) for task persistence
 - GitHub Pages for deployment
 - GitHub Actions for automated static site deployment
 

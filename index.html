@@ -36,11 +36,26 @@
           </div>
           <div class="workspace-actions">
             <button id="syncBtn" class="sync-btn" type="button">Demo Sync</button>
-            <button id="exportBtn" class="ghost-btn" type="button">Export</button>
-            <label class="ghost-btn import-label">
-              <input id="importInput" type="file" accept="application/json" />
-              Import
-            </label>
+            <div class="io-menu">
+              <button id="exportMenuBtn" class="ghost-btn" type="button" aria-haspopup="true" aria-expanded="false">Export</button>
+              <div id="exportMenu" class="io-menu-panel" hidden role="menu">
+                <button type="button" role="menuitem" data-export="json">JSON (.json)</button>
+                <button type="button" role="menuitem" data-export="csv">CSV (.csv)</button>
+              </div>
+            </div>
+            <div class="io-menu">
+              <button id="importMenuBtn" class="ghost-btn" type="button" aria-haspopup="true" aria-expanded="false">Import</button>
+              <div id="importMenu" class="io-menu-panel" hidden role="menu">
+                <label class="io-menu-item" role="menuitem">
+                  <input id="importJsonInput" type="file" accept=".json,application/json" />
+                  JSON (.json)
+                </label>
+                <label class="io-menu-item" role="menuitem">
+                  <input id="importCsvInput" type="file" accept=".csv,text/csv" />
+                  CSV (.csv)
+                </label>
+              </div>
+            </div>
           </div>
         </div>
 
